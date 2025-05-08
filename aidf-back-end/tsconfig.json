@@ -1,27 +1,17 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
-    "sourceMap": true,
+    "target": "es2019",
+    "module": "commonjs",
     "outDir": "dist",
+    "rootDir": "src",
     "strict": true,
-    "lib": ["esnext"]
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "lib": ["es2019", "dom"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }
-
-// {
-//   "compilerOptions": {
-//     "outDir": "dist",
-//     "rootDir": "src",
-//     "module": "commonjs",
-//     "target": "es2019",
-//     "esModuleInterop": true,
-//     "strict": true,
-//     "resolveJsonModule": true,
-//     "sourceMap": true,
-//     "lib": ["esnext"]
-//   },
-//   "include": ["src/**/*.ts"],
-//   "exclude": ["node_modules"]
-// }
+// This is a TypeScript configuration file for a Node.js project. It specifies the compiler options and the files to include and exclude during the compilation process. The target is set to ES2019, and the module system is CommonJS. The output directory is set to "dist", and the root directory is "src". The strict mode is enabled for better type checking, and ES module interoperability is allowed. JSON modules can be resolved, and source maps are generated for debugging purposes. The included files are in the "src" directory, while the "node_modules" directory is excluded.
+// The "lib" option specifies the libraries to be included during compilation, in this case, ES2019 and DOM.
