@@ -15,7 +15,7 @@ app.use(clerkMiddleware());
 app.use(express.json());
 
 //To allow cross-origin requests
-app.use(cors());
+app.use(cors({ origin: "https://aidf-front-end-methmal.netlify.app/" }));
 
 //Connect to the database
 connectDB();
@@ -26,8 +26,9 @@ app.use("/api/booking", bookingRouter);
 
 app.use(globalErrorHandlingMiddleware);
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 //
