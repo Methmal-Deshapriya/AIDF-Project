@@ -20,6 +20,7 @@
     "mongodb": "^6.15.0",
     "mongoose": "^8.13.2",
     "openai": "^4.96.0",
+    "stripe": "^18.1.0",
     "zod": "^3.24.3"
   },
   "devDependencies": {
