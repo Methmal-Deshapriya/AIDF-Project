@@ -1,12 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import UnauthorizedError from "../domain/errors/unauthorized-error";
 import { log } from "console";
+import { WithAuthProp } from "@clerk/clerk-sdk-node";
 
-interface AuthenticatedRequest extends Request {
-  auth?: {
-    userId?: string;
-  };
-}
+export type AuthenticatedRequest = WithAuthProp<Request>;
 
 const isAuthenticated = (
   req: AuthenticatedRequest,

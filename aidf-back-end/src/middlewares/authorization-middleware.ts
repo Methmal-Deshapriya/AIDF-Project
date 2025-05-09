@@ -1,11 +1,9 @@
-import { Request, Response, NextFunction } from "express";
+import e, { Request, Response, NextFunction } from "express";
 import { ForbiddenError } from "../domain/errors/forbidden-error";
+import { WithAuthProp } from "@clerk/clerk-sdk-node";
 
-interface AuthenticatedRequest extends Request {
-  auth?: {
-    sessionClaims?: { metadata?: { role: "admin" } };
-  };
-}
+export type AuthenticatedRequest = WithAuthProp<Request>;
+
 const isAdmin = (
   req: AuthenticatedRequest,
   res: Response,
