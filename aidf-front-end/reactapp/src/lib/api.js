@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://aidf-backend-methmal.onrender.com/api/",
+    baseUrl: "https://aidf-back-end-methmal.onrender.com/api/",
     prepareHeaders: async (headers) => {
       const token = await window?.Clerk?.session?.getToken();
 
