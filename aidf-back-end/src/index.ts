@@ -15,7 +15,12 @@ app.use(clerkMiddleware());
 app.use(express.json());
 
 //To allow cross-origin requests
-app.use(cors({ origin: "https://aidf-front-end-methmal.netlify.app/" }));
+app.use(
+  cors({
+    origin: "https://aidf-front-end-methmal.netlify.app",
+    credentials: true,
+  })
+);
 
 //Connect to the database
 connectDB();
