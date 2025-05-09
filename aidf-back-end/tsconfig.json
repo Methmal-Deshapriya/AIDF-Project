@@ -1,14 +1,25 @@
+// {
+//   "compilerOptions": {
+//     "esModuleInterop": true,
+//     "sourceMap": true,
+//     "outDir": "dist",
+//     "strict": true,
+//     "lib": ["esnext"]
+//   },
+//   "include": ["src"],
+//   "exclude": ["node_modules"]
+// }
+
 {
   "compilerOptions": {
-    "target": "es2019",
+    "target": "esnext",
     "module": "commonjs",
     "outDir": "dist",
-    "rootDir": "src",
     "strict": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true,
     "sourceMap": true,
-    "lib": ["es2019", "dom"]
+    "resolveJsonModule": true,
+    "lib": ["esnext"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
