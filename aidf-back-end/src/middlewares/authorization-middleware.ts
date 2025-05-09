@@ -1,14 +1,12 @@
-import e, { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import { ForbiddenError } from "../domain/errors/forbidden-error";
-import { WithAuthProp } from "@clerk/clerk-sdk-node";
 
-export type AuthenticatedRequest = WithAuthProp<Request>;
-
-const isAdmin = (
-  req: AuthenticatedRequest,
-  res: Response,
-  next: NextFunction
-) => {
+// interface AuthenticatedRequest extends Request {
+//   auth?: {
+//     sessionClaims?: { metadata?: { role: "admin" } };
+//   };
+// }
+const isAdmin = (req: Request, res: Response, next: NextFunction) => {
   if (req.auth?.sessionClaims?.metadata?.role !== "admin") {
     throw new ForbiddenError("Forbidden");
   }

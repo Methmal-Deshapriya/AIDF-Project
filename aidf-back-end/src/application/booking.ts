@@ -4,14 +4,18 @@ import { createbookingDTO } from "../domain/dtos/booking";
 import ValidationError from "../domain/errors/validation-error";
 import { promise } from "zod";
 import { clerkClient } from "@clerk/express";
-import { WithAuthProp } from "@clerk/clerk-sdk-node";
 
-import { AuthenticatedRequest } from "../middlewares/authentication-middleware";
-
+// interface AuthenticatedRequest extends Request {
+//   auth?: {
+//     userId?: string;
+//     userFullName?: string;
+//     emailAddresses?: Array<{ emailAddress: string }>;
+//   };
+// }
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const createBooking = async (
-  req: AuthenticatedRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
