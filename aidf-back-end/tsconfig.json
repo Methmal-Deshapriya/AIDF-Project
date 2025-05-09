@@ -20,7 +20,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "lib": ["es2019"]
+    "lib": ["es2019", "dom"]
   },
   "include": ["src"],
   "exclude": ["node_modules"]
