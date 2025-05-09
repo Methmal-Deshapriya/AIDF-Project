@@ -1,5 +1,3 @@
-/// <reference types="@clerk/express/env" />
-
 import type { AuthObject } from "@clerk/express";
 
 // ✅ Tell TypeScript about req.auth from Clerk middleware
