@@ -40,7 +40,13 @@ const CompletePage = () => {
   }
 
   if (data?.status === "open") {
-    return <Navigate to={`/booking/payment?bookingId=${data?.bookingId}`} />;
+    // return <Navigate to={`/booking/payment?bookingId=${data?.bookingId}`} />;
+    return (
+      <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md text-center">
+        The payment session is still open. Please complete your payment to
+        confirm the booking.
+      </div>
+    );
   }
 
   if (data?.status === "complete") {
