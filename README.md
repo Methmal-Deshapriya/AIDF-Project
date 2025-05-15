@@ -15,6 +15,8 @@ This is a full-stack application developed for the **HotelsForStaycation**, incl
 - Tailwind CSS
 - ShadCN UI
 - React Router
+- Clerk Authentication
+- Stripe js and stripe react-js
 
 ### 🔹 Backend
 
@@ -25,6 +27,7 @@ This is a full-stack application developed for the **HotelsForStaycation**, incl
 - Clerk Authentication
 - Middleware (Auth, Error Handling)
 - OpenAI
+- Stripe
 
 ---
 
@@ -37,6 +40,7 @@ This is a full-stack application developed for the **HotelsForStaycation**, incl
 - ⚠️ Global Error Handling
 - 🔁 API Integration (RESTful)
 - 🛜 AI Powered search for hotels
+- 💰 Stripe Payment Integration
 
 ---
 

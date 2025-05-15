@@ -9,6 +9,7 @@ import HotelPage from "./pages/hotel.page";
 import RootLayout from "./layouts/root.layout";
 import MainLayout from "./layouts/main.layout";
 import HotelsPage from "./pages/hotels.page";
+import PaymentPage from "./pages/payment.page";
 import { store } from "./lib/store";
 import { Provider } from "react-redux";
 import CreateHotelPage from "./pages/create-hotel.page";
@@ -41,6 +42,10 @@ createRoot(document.getElementById("root")).render(
                     ></Route>
                   </Route>
                   <Route path="/account" element={<AccountPage />}></Route>
+                  <Route
+                    path="/booking/payment"
+                    element={<PaymentPage />}
+                  ></Route>
                 </Route>
               </Route>
               <Route path="/sign-in" element={<SignInPage />}></Route>

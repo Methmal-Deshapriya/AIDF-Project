@@ -1,9 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://aidf-back-end-methmal.onrender.com/api/",
+    // baseUrl: "http://localhost:3000/api/",
+    baseUrl: `${BACKEND_URL}/api/`,
     prepareHeaders: async (headers) => {
       const token = await window?.Clerk?.session?.getToken();
 
@@ -28,6 +31,9 @@ const api = createApi({
       providesTags: (result, error, { userId }) => [
         { type: "Bookings", id: userId },
       ],
+    }),
+    getBookingById: builder.query({
+      query: (id) => `booking/${id}`,
     }),
     createHotel: builder.mutation({
       query: (hotel) => ({
@@ -64,5 +70,6 @@ export const {
   useGenerateChatMutation,
   useGetHotelBySearchQuery,
   useGetBookingsByUserQuery,
+  useGetBookingByIdQuery,
 } = api;
 export { api };

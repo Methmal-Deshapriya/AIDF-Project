@@ -4,9 +4,12 @@ import hotelsRouter from "./api/hotel";
 import connectDB from "./infrastructure/db";
 // import userRouter from "./api/user";
 import bookingRouter from "./api/booking";
+import paymentRouter from "./api/payment";
 import cors from "cors";
 import { clerkMiddleware } from "@clerk/express";
 import globalErrorHandlingMiddleware from "./middlewares/global-error-handling-middleware";
+
+const FRONTEND_URL = process.env.FRONTEND_URL;
 const app = express();
 
 app.use(clerkMiddleware());
@@ -28,12 +31,13 @@ connectDB();
 app.use("/api/hotel", hotelsRouter);
 // app.use("/api/user", userRouter);
 app.use("/api/booking", bookingRouter);
+app.use("/api/payment", paymentRouter);
 
 app.use(globalErrorHandlingMiddleware);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on ${PORT}`);
 });
 
 //
