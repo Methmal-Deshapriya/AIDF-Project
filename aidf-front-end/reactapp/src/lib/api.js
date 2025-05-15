@@ -35,6 +35,9 @@ const api = createApi({
     getBookingById: builder.query({
       query: (id) => `booking/${id}`,
     }),
+    getSessionStatus: builder.query({
+      query: (sessionId) => `payment/session-status?sessionId=${sessionId}`,
+    }),
     createHotel: builder.mutation({
       query: (hotel) => ({
         url: "hotel",
@@ -71,5 +74,6 @@ export const {
   useGetHotelBySearchQuery,
   useGetBookingsByUserQuery,
   useGetBookingByIdQuery,
+  useGetSessionStatusQuery,
 } = api;
 export { api };

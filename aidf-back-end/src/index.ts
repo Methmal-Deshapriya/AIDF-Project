@@ -8,6 +8,8 @@ import paymentRouter from "./api/payment";
 import cors from "cors";
 import { clerkMiddleware } from "@clerk/express";
 import globalErrorHandlingMiddleware from "./middlewares/global-error-handling-middleware";
+import { handleWebHook } from "./application/payment";
+import bodyParser from "body-parser";
 
 const FRONTEND_URL = process.env.FRONTEND_URL;
 const app = express();
@@ -20,13 +22,19 @@ app.use(express.json());
 //To allow cross-origin requests
 app.use(
   cors({
-    origin: "https://aidf-front-end-methmal.netlify.app",
+    origin: FRONTEND_URL,
     credentials: true,
   })
 );
 
 //Connect to the database
 connectDB();
+
+app.post(
+  "/api/stripe/webhook",
+  bodyParser.raw({ type: "application/json" }),
+  handleWebHook
+);
 
 app.use("/api/hotel", hotelsRouter);
 // app.use("/api/user", userRouter);

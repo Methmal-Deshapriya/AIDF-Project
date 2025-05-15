@@ -1,6 +1,7 @@
 import { createCheckoutSession } from "../application/payment";
 import express from "express";
 import isAuthenticated from "../middlewares/authentication-middleware";
+import { retrieveSessionStatus } from "../application/payment";
 const paymentRouter = express.Router();
 
 paymentRouter.post(
@@ -8,5 +9,7 @@ paymentRouter.post(
   isAuthenticated,
   createCheckoutSession
 );
+
+paymentRouter.get("/session-status", isAuthenticated, retrieveSessionStatus);
 
 export default paymentRouter;

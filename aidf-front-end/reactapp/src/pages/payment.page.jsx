@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router";
 import { useGetBookingByIdQuery } from "@/lib/api";
 import { CheckoutForm } from "@/components/ui/CheckoutForm";
 
-export default function paymentPage() {
+export default function PaymentPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const bookingId = searchParams.get("bookingId");
   const { data: booking, isLoading } = useGetBookingByIdQuery(bookingId);
