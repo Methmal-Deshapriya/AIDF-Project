@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { useSearchParams } from "react-router";
+import { useSearchParams } from "react-router-dom";
 import { useGetSessionStatusQuery } from "@/lib/api";
 import { Link } from "react-router";
 import { Navigate } from "react-router";
@@ -9,6 +9,9 @@ import { format } from "date-fns";
 const CompletePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
+
+  console.log("sessionId from URL:", sessionId);
+  console.log("payment data received:", data);
 
   const { data, isLoading, isError, error } =
     useGetSessionStatusQuery(sessionId);
@@ -40,13 +43,7 @@ const CompletePage = () => {
   }
 
   if (data?.status === "open") {
-    // return <Navigate to={`/booking/payment?bookingId=${data?.bookingId}`} />;
-    return (
-      <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md text-center">
-        The payment session is still open. Please complete your payment to
-        confirm the booking.
-      </div>
-    );
+    return <Navigate to={`/booking/payment?bookingId=${data?.bookingId}`} />;
   }
 
   if (data?.status === "complete") {
