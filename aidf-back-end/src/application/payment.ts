@@ -59,7 +59,7 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
 export const handleWebHook = async (req: Request, res: Response) => {
   const payload = req.body;
   const sig = req.headers["stripe-signature"] as string;
-  console.log("payload", payload);
+  console.log("payload is comming", payload);
   let event;
 
   try {
@@ -80,13 +80,14 @@ export const handleWebHook = async (req: Request, res: Response) => {
 };
 
 export const fullFillCheckout = async (sessionId: string) => {
-  console.log("fullfilling checkout", sessionId);
+  // console.log("fullfilling checkout", sessionId);
+  console.log("fullfilling checkout is happening also", sessionId);
 
   const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId, {
     expand: ["line_items"],
   });
 
-  console.log(util.inspect(checkoutSession, false, null, true));
+  // console.log(util.inspect(checkoutSession, false, null, true));
 
   const booking = await Booking.findById(checkoutSession.metadata?.bookingId);
 
