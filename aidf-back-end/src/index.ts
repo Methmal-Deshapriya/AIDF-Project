@@ -16,16 +16,16 @@ const app = express();
 
 app.use(clerkMiddleware());
 
-//Middleware to parse JSON - set json to the req.body property
-app.use(express.json());
-
-//To allow cross-origin requests
 app.use(
   cors({
     origin: FRONTEND_URL,
     credentials: true,
   })
 );
+//Middleware to parse JSON - set json to the req.body property
+app.use(express.json());
+
+//To allow cross-origin requests
 
 //Connect to the database
 connectDB();
