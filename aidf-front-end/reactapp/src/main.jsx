@@ -17,7 +17,7 @@ import { ClerkProvider } from "@clerk/clerk-react";
 import ProtectedLayout from "./layouts/protected.layout";
 import AccountPage from "./pages/account.page";
 import AdminLayout from "./layouts/admin.layout";
-import { CompletePage } from "./pages/complete.page";
+import CompletePage from "./pages/complete.page";
 
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 if (!clerkPubKey) {
