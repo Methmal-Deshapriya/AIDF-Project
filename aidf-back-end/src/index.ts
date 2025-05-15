@@ -16,25 +16,25 @@ const app = express();
 
 app.use(clerkMiddleware());
 
+//To allow cross-origin requests
 app.use(
   cors({
     origin: FRONTEND_URL,
     credentials: true,
   })
 );
-//Middleware to parse JSON - set json to the req.body property
-app.use(express.json());
-
-//To allow cross-origin requests
-
-//Connect to the database
-connectDB();
 
 app.post(
   "/api/stripe/webhook",
   bodyParser.raw({ type: "application/json" }),
   handleWebHook
 );
+
+//Middleware to parse JSON - set json to the req.body property
+app.use(express.json());
+
+//Connect to the database
+connectDB();
 
 app.use("/api/hotel", hotelsRouter);
 // app.use("/api/user", userRouter);
