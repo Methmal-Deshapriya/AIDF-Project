@@ -36,6 +36,7 @@ const HotelListing = () => {
     data: hotels,
     isLoading,
     isError,
+    error,
   } = useGetHotelBySearchQuery({ query: searchValue });
 
   // const userSlice = useSelector((state) => state.user);
