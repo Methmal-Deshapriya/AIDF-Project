@@ -11,11 +11,11 @@ const CompletePage = () => {
   const sessionId = searchParams.get("session_id");
 
   console.log("sessionId from URL:", sessionId);
-  console.log("payment data received:", data);
 
   const { data, isLoading, isError, error } =
     useGetSessionStatusQuery(sessionId);
 
+  console.log("payment data received:", data);
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
