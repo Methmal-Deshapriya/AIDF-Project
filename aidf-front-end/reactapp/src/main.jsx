@@ -47,11 +47,11 @@ createRoot(document.getElementById("root")).render(
                     path="/booking/payment"
                     element={<PaymentPage />}
                   ></Route>
-                  <Route
-                    path="/booking/complete"
-                    element={<CompletePage />}
-                  ></Route>
                 </Route>
+                <Route
+                  path="/booking/complete"
+                  element={<CompletePage />}
+                ></Route>
               </Route>
               <Route path="/sign-in" element={<SignInPage />}></Route>
               <Route path="/sign-up" element={<SignUpPage />}></Route>
