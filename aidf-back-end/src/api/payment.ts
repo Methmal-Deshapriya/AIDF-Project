@@ -10,6 +10,6 @@ paymentRouter.post(
   createCheckoutSession
 );
 
-paymentRouter.get("/session-status", isAuthenticated, retrieveSessionStatus);
+paymentRouter.get("/session-status", retrieveSessionStatus);
 
 export default paymentRouter;

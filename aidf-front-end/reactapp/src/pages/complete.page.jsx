@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import { useGetSessionStatusQuery } from "@/lib/api";
 import { Link } from "react-router";
 import { Navigate } from "react-router";
