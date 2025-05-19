@@ -16,6 +16,7 @@ const CompletePage = () => {
     useGetSessionStatusQuery(sessionId);
 
   console.log("payment data received:", data);
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -46,7 +47,7 @@ const CompletePage = () => {
     return <Navigate to={`/booking/payment?bookingId=${data?.bookingId}`} />;
   }
 
-  if (data?.status === "complete") {
+  if (data?.status === "complete" && !isLoading) {
     const checkInDate = new Date(data.booking.checkIn);
     const checkOutDate = new Date(data.booking.checkOut);
     const formattedCheckIn = format(checkInDate, "MMM dd, yyyy");

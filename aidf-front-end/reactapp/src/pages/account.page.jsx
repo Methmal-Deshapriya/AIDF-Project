@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { useGetBookingsByUserQuery } from "@/lib/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import { BookingCard } from "@/components/ui/BookingCard";
+import { useGetReviewsForUserQuery } from "@/lib/api";
+import { ReviewCardForUser } from "@/components/ReviewCardForUser";
+import { useClerk } from "@clerk/clerk-react";
 
 const AccountPage = () => {
   const { user } = useUser();
@@ -12,9 +15,21 @@ const AccountPage = () => {
     isError,
     error,
   } = useGetBookingsByUserQuery({ userId: user?.id });
-  console.log("Bookings: ", bookings);
 
-  if (isLoading) {
+  const {
+    data: reviews,
+    isLoading: isLoadingReviews,
+    isError: isReviewError,
+  } = useGetReviewsForUserQuery();
+
+  const { signOut } = useClerk();
+  const handleSignOut = () => {
+    signOut(() => {
+      window.location.href = "/";
+    });
+  };
+
+  if (isLoading || isLoadingReviews) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
         {/* User Skeleton */}
@@ -56,11 +71,10 @@ const AccountPage = () => {
       </div>
     );
   }
-  if (isError) {
+  if (isError || isReviewError) {
     return <div className="text-red-500">Error: {error.message}</div>;
   }
 
-  console.log(bookings);
   return (
     // main div
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -83,17 +97,8 @@ const AccountPage = () => {
         </div>
         {/* edit profile, change password, sign out, delete account */}
         <div className="grid grid-cols-2 gap-4 mt-8 ">
-          <Button variant="outline" className="w-full">
-            Edit Profile
-          </Button>
-          <Button variant="outline" className="w-full">
-            Change Password
-          </Button>
-          <Button variant="destructive" className="w-full">
+          <Button variant="default" className="w-full" onClick={handleSignOut}>
             Sign Out
-          </Button>
-          <Button variant="destructive" className="w-full">
-            Delete Account
           </Button>
         </div>
       </div>
@@ -118,31 +123,15 @@ const AccountPage = () => {
         <h2 className="text-2xl font-semibold text-card-foreground mb-6">
           My Reviews
         </h2>
-        {/* reviews cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bg-popover rounded-lg p-6 hover:shadow-lg transition-shadow">
-            <h3 className="text-xl font-medium text-popover-foreground">
-              Grand Hotel
-            </h3>
-            <div className="flex items-center mt-2">
-              <div className="flex text-yellow-400">
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span className="text-gray-300">★</span>
-              </div>
-              <span className="ml-2 text-muted-foreground">4.0</span>
-            </div>
-
-            <p className="mt-4 text-popover-foreground">
-              "Great stay, wonderful service and amazing amenities. Would
-              definitely recommend!"
-            </p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Posted on: 10/03/2024
-            </p>
-          </div>
+          {/* reviews cards */}
+          {reviews.length > 0 ? (
+            reviews.map((review) => (
+              <ReviewCardForUser key={review._id} review={review} />
+            ))
+          ) : (
+            <div className="text-black-100">No reviews found</div>
+          )}
         </div>
       </div>
     </div>
