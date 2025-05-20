@@ -18,6 +18,7 @@ export const ReviewCardForHotel = ({ review }) => {
           <div className="flex items-center ml-4 mt-2">
             {Array.from({ length: 5 }, (_, index) => (
               <span
+                key={index}
                 className={
                   index > review.rating - 1
                     ? "text-gray-300"

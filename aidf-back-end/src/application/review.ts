@@ -99,7 +99,7 @@ export const getReviewsForHotel = async (
       })
     );
     res.status(200).json(reviewsWithUser);
-    console.log("Reviews", reviewsWithUser);
+
     return;
   } catch (error) {
     next(error);

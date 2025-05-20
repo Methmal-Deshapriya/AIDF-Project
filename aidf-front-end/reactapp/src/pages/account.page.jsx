@@ -77,60 +77,83 @@ const AccountPage = () => {
 
   return (
     // main div
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="bg-card rounded-lg shadow-lg p-8 mb-8">
-        {/* user profile */}
-        <div className="flex items-center gap-8 ">
-          <img
-            src={user.imageUrl}
-            alt={user.fullName}
-            className="w-24 h-24 rounded-full object-cover border-4 border-primary"
-          />
-          <div>
-            <h1 className="text-3xl font-bold text-card-foreground">
-              {user.fullName}
-            </h1>
-            <p className="text-muted-foreground">
-              {user.emailAddresses[0].emailAddress}
-            </p>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-white">
+      {/* Profile & Stats */}
+      <div className=" rounded-xl shadow-xl p-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+          {/* Profile Info */}
+          <div className="flex items-center gap-6">
+            <img
+              src={user.imageUrl}
+              alt={user.fullName}
+              className="w-24 h-24 rounded-full object-cover border-4 border-white"
+            />
+            <div>
+              <h1 className="text-2xl font-bold text-black">{user.fullName}</h1>
+              <p className="text-sm text-gray-400">
+                {user.emailAddresses[0].emailAddress}
+              </p>
+            </div>
+          </div>
+
+          {/* Account Activity Stats */}
+          <div className="col-span-1 flex justify-around text-center bg-zinc-800 rounded-lg p-4">
+            <div>
+              <p className="text-lg font-semibold">{bookings.length}</p>
+              <p className="text-xs text-gray-400">Bookings</p>
+            </div>
+            <div>
+              <p className="text-lg font-semibold">{reviews.length}</p>
+              <p className="text-xs text-gray-400">Reviews</p>
+            </div>
+            <div>
+              <p className="text-lg font-semibold">
+                {new Date(user.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                })}
+              </p>
+              <p className="text-xs text-gray-400">Member Since</p>
+            </div>
+          </div>
+
+          {/* Sign Out Button */}
+          <div className="flex justify-center md:justify-end mt-4 md:mt-0">
+            <Button
+              variant="default"
+              className=" text-white font-semibold px-6 py-2 rounded-full hover:bg-gray-200 transition"
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </Button>
           </div>
         </div>
-        {/* edit profile, change password, sign out, delete account */}
-        <div className="grid grid-cols-2 gap-4 mt-8 ">
-          <Button variant="default" className="w-full" onClick={handleSignOut}>
-            Sign Out
-          </Button>
-        </div>
       </div>
-      {/* bookings */}
-      <div className="bg-card rounded-lg shadow-lg p-8 mb-8 ">
-        <h2 className="text-2xl font-semibold text-card-foreground mb-6">
-          My Bookings
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-          {/* booking card */}
+
+      {/* Bookings Section */}
+      <div className=" rounded-xl shadow-xl p-8 mb-12">
+        <h2 className="text-2xl text-black font-semibold mb-6">My Bookings</h2>
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-6">
           {bookings.length > 0 ? (
             bookings.map((booking) => (
               <BookingCard key={booking._id} booking={booking} />
             ))
           ) : (
-            <div className="text-black-100">No bookings found</div>
+            <div className="text-gray-500 col-span-full">No bookings found</div>
           )}
         </div>
       </div>
-      {/* reviews */}
-      <div className="bg-card rounded-lg shadow-lg p-8">
-        <h2 className="text-2xl font-semibold text-card-foreground mb-6">
-          My Reviews
-        </h2>
+
+      {/* Reviews Section */}
+      <div className=" rounded-xl shadow-xl p-8">
+        <h2 className="text-2xl text-black font-semibold mb-6">My Reviews</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* reviews cards */}
           {reviews.length > 0 ? (
             reviews.map((review) => (
               <ReviewCardForUser key={review._id} review={review} />
             ))
           ) : (
-            <div className="text-black-100">No reviews found</div>
+            <div className="text-gray-500 col-span-full">No reviews found</div>
           )}
         </div>
       </div>

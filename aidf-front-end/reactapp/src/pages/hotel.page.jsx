@@ -46,30 +46,28 @@ const HotelPage = () => {
 
   const handleModelOpen = () => {
     setIsModelOpen(true);
-    console.log("modelOppening");
   };
 
   const handleReviewModelOpen = () => {
     setIsReviewOpen(true);
-    console.log("reviewModelOpen");
   };
 
   const handleReviewModelClose = () => {
     setIsReviewOpen(false);
-    console.log("reviewModelClose");
   };
 
   const handleModelClose = () => {
     setIsModelOpen(false);
-    console.log("modelClose");
   };
 
   //submitting booking
   const handleBooking = async (data) => {
-    const { checkIn, checkOut, totalPrice, nights, hotelName } = data;
+    const { checkIn, checkOut, totalPrice, nights, hotelName, hotelImage } =
+      data;
     try {
       const booking = await createBooking({
         hotelId: id,
+        hotelImage: hotelImage,
         checkIn: checkIn,
         checkOut: checkOut,
         totalPrice: totalPrice,
@@ -86,9 +84,7 @@ const HotelPage = () => {
 
   const handleReview = async (data) => {
     const { rating, review, hotelId } = data;
-    console.log("review", review);
-    console.log("rating", rating);
-    console.log("hotelId", hotelId);
+
     try {
       const userReview = await createReview({
         rating: rating,
@@ -262,11 +258,11 @@ const HotelPage = () => {
               </div>
             </div>
           </div>
-          <div className="bg-card rounded-lg shadow-lg p-8 mt-8">
+          <div className="bg-card rounded-lg shadow-lg p-8 mt-12">
             <h2 className="text-2xl font-semibold text-card-foreground mb-6">
               Reviews
             </h2>
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* reviews cards */}
               {reviews?.length > 0 ? (
                 reviews.map((review) => {
