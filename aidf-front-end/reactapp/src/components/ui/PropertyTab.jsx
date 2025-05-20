@@ -14,7 +14,7 @@ export const PropertyTab = ({
     return (
       <>
         <div
-          className=" relative rounded-lg w-[210px] h-[210px] shadow-md overflow-hidden cursor-pointer"
+          className=" relative rounded-lg mx-auto  md:w-[210px] md:h-[210px] shadow-md overflow-hidden cursor-pointer"
           onClick={handleClick}
         >
           <img
@@ -34,7 +34,7 @@ export const PropertyTab = ({
   return (
     <>
       <div
-        className=" relative rounded-lg w-[200px] h-[200px] shadow-md overflow-hidden cursor-pointer"
+        className=" relative rounded-lg mx-auto md:w-[200px] md:h-[200px] shadow-md overflow-hidden cursor-pointer"
         onClick={handleClick}
       >
         <img
