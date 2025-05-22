@@ -77,6 +77,13 @@ const api = createApi({
         { type: "userReviews" },
       ],
     }),
+    createHelp: builder.mutation({
+      query: (help) => ({
+        url: "help",
+        method: "POST",
+        body: help,
+      }),
+    }),
     generateChat: builder.mutation({
       query: (messages) => ({
         url: "/generate",
@@ -100,5 +107,6 @@ export const {
   useCreateReviewMutation,
   useGetReviewsByHotelIdQuery,
   useGetReviewsForUserQuery,
+  useCreateHelpMutation,
 } = api;
 export { api };
