@@ -2,6 +2,7 @@ import Help from "../infrastructure/schemas/Help";
 import { Request, Response, NextFunction } from "express";
 import { createHelpDTO } from "../domain/dtos/help";
 import { clerkClient } from "@clerk/express";
+import { sendEmail } from "../utills/mailer";
 
 export const createHelp = async (
   req: Request,
@@ -55,17 +56,57 @@ export const getAllHelp = async (req: Request, res: Response) => {
   return;
 };
 
-export const deleteHelp = async (req: Request, res: Response) => {
-  const helpId = req.params.id;
-  if (!helpId) {
-    res.status(400).send("Please provide a help ID");
+// export const deleteHelp = async (req: Request, res: Response) => {
+//   const helpId = req.params.id;
+//   if (!helpId) {
+//     res.status(400).send("Please provide a help ID");
+//     return;
+//   }
+//   const deletedHelp = await Help.findByIdAndDelete(helpId);
+//   if (!deletedHelp) {
+//     res.status(404).send("Help not found");
+//     return;
+//   }
+//   res.status(200).send("Help deleted successfully");
+//   return;
+// };
+
+export const replyToHelpRequest = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { to, name, subject, message, reply, helpId } = req.body;
+
+    if (!to || !reply || !helpId) {
+      res
+        .status(400)
+        .json({ message: "Please provide all the required fields" });
+      return;
+    }
+
+    await sendEmail({
+      to,
+      subject: `Reply: ${subject}`,
+      html: `
+        <p>Hi ${name},</p>
+        <p><strong>Your original request:</strong></p>
+        <blockquote>${message}</blockquote>
+        <p><strong>Our response:</strong></p>
+        <p>${reply}</p>
+        <br/>
+        <p>— HotelzaAI Support Team</p>
+      `,
+    });
+
+    await Help.findByIdAndDelete(helpId);
+
+    res.status(200).json({ message: "Help request replied successfully" });
+    return;
+  } catch (error) {
+    console.log("Error replying to help request", error);
+    res.status(400).json({ message: "Has errors with sending email" });
     return;
   }
-  const deletedHelp = await Help.findByIdAndDelete(helpId);
-  if (!deletedHelp) {
-    res.status(404).send("Help not found");
-    return;
-  }
-  res.status(200).send("Help deleted successfully");
-  return;
 };

@@ -45,7 +45,7 @@ createRoot(document.getElementById("root")).render(
                 <Route element={<ProtectedLayout />}>
                   <Route element={<AdminLayout />}>
                     <Route
-                      path="/create-hotel"
+                      path="/admin-dashboard"
                       element={<CreateHotelPage />}
                     ></Route>
                   </Route>
