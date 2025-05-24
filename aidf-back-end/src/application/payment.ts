@@ -3,6 +3,8 @@ import Booking from "../infrastructure/schemas/Booking";
 import { Request, Response, NextFunction } from "express";
 import stripe from "../infrastructure/stripe";
 import util from "util";
+import { sendEmail } from "../utills/mailer";
+import { send } from "process";
 
 const FRONTEND_URL = process.env.FRONTEND_URL;
 const endpointSecret = process.env.WEBHOOK_SECURITY_KEY as string;
@@ -94,10 +96,12 @@ export const fullFillCheckout = async (sessionId: string) => {
 
   if (!booking) {
     throw new Error("Booking not found");
+    return;
   }
 
   if (booking.paymentStatus !== "PENDING") {
     throw new Error("Booking already paid");
+    return;
   }
 
   if (checkoutSession.payment_status !== "unpaid") {
@@ -105,6 +109,34 @@ export const fullFillCheckout = async (sessionId: string) => {
       paymentStatus: "PAID",
     });
   }
+
+  const hotel = await Hotel.findById(booking.hotelId);
+  const customerEmail = checkoutSession.customer_details?.email;
+  const customerName = checkoutSession.customer_details?.name;
+
+  await sendEmail({
+    to: customerEmail as string,
+    subject: `Booking Confirmed: ${hotel?.name}`,
+    html: `
+      <p>Hi ${customerName},</p>
+      <p>Your booking has been confirmed. You can view your booking details below:</p>
+      <p><a href="${FRONTEND_URL}/booking/complete?session_id=${checkoutSession.id}">Booking Details</a></p>
+      <br/>
+      <p>— HotelzaAI Team</p>
+    `,
+  });
+
+  await sendEmail({
+    to: hotel?.hotelEmail as string,
+    subject: `A guest has booked your hotel`,
+    html: `
+      <p>Hi ${hotel?.name},</p>
+      <p>A guest has booked your hotel. You can view the booking details below:</p>
+      <p><a href="${FRONTEND_URL}/booking/complete?session_id=${checkoutSession.id}">Booking Details</a></p>
+      <br/>
+      <p>— HotelzaAI Team</p>
+    `,
+  });
   return;
 };
 
