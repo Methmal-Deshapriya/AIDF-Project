@@ -59,6 +59,18 @@ export const createReview = async (
       review: newReview.data.review,
     });
 
+    await Hotel.findByIdAndUpdate(hotelId, {
+      $inc: {
+        reviews: 1,
+        totalRating: newReview.data.rating,
+      },
+    });
+
+    const updatedHotel = await Hotel.findById(hotelId);
+    if (updatedHotel) {
+      updatedHotel.rating = updatedHotel.totalRating / updatedHotel.reviews;
+      await updatedHotel.save();
+    }
     res.status(201).json(savedReview);
   } catch (error) {
     next(error);

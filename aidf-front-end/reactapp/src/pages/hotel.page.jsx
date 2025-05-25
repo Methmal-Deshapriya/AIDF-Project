@@ -29,7 +29,12 @@ const HotelPage = () => {
   const [isModelOpen, setIsModelOpen] = useState(false);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const { id } = useParams();
-  const { data: hotel, isLoading, isError, error } = useGetHotelByIdQuery(id);
+  const {
+    data: hotel,
+    isLoading,
+    isError,
+    error,
+  } = useGetHotelByIdQuery({ hotelId: id });
 
   // Fetch reviews for the hotel
   const {

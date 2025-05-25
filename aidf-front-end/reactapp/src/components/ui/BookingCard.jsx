@@ -5,9 +5,15 @@ import HeroImage from "@/assets/hero_1.jpg";
 import { Link } from "react-router";
 
 export const BookingCard = ({ booking }) => {
+  const today = new Date();
+  const checkIn = new Date(booking.checkIn);
+
+  const diffInMs = checkIn - today;
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
   return (
     <Link to={`/hotel/${booking.hotelId}`}>
-      <div className="bg-popover rounded-lg  hover:shadow-lg transition-shadow">
+      <div className="bg-popover rounded-lg  hover:shadow-lg  transition-shadow">
         {/* Left: Image */}
         <div className="relative aspect-[4/3] overflow-hidden rounded-xl rounded-b-none block group relative">
           <img
@@ -19,6 +25,23 @@ export const BookingCard = ({ booking }) => {
             <h2 className="px-3 py-1 bg-black text-white text-xs rounded-full ">
               {booking.paymentStatus}
             </h2>
+            {
+              <div className="">
+                {diffInDays > 0 ? (
+                  <div className="bg-white px-2 text-xs  py-1 text-black rounded-xl ">
+                    IN {diffInDays} DAYS
+                  </div>
+                ) : diffInDays === 0 ? (
+                  <div className="bg-white px-2 text-xs  py-1 text-black rounded-xl ">
+                    TODAY
+                  </div>
+                ) : (
+                  <div className="bg-white px-2 text-xs  py-1 text-black rounded-xl ">
+                    {-diffInDays} DAYS AGO
+                  </div>
+                )}
+              </div>
+            }
           </div>
         </div>
         <div className="p-4 ">
@@ -27,12 +50,7 @@ export const BookingCard = ({ booking }) => {
               {booking.hotelName}
             </h1>
           </div>
-          <div className="mt-2 flex items-center text-muted-foreground">
-            <p className="flex items-center text-sm text-gray-500">
-              <MapPin className="h-4 w-4 mr-1" />
-              {booking.location || "Unknown Location"}
-            </p>
-          </div>
+
           {/* Dates */}
           <div className="">
             <div className="text-sm text-gray-500 flex items-center gap-2  my-2">
@@ -51,13 +69,24 @@ export const BookingCard = ({ booking }) => {
         </div>
         {/* Center: Hotel Info */}
         <div className="px-4 pb-4 flex justify-end">
-          <Button
-            variant="outline"
-            className="px-5 text-black"
-            onClick={() => console.log("Cancel booking logic here")}
-          >
-            Cancel Booking
-          </Button>
+          {booking.paymentStatus === "PENDING" ? (
+            <div className="">
+              <Button
+                variant="outline"
+                className="px-5 text-black text-xs mr-2 rounded-full"
+                onClick={() => console.log("Cancel booking logic here")}
+              >
+                Cancel Booking
+              </Button>
+              <Button asChild className="px-5 rounded-full text-xs">
+                <Link to={`/booking/payment?bookingId=${booking._id}`}>
+                  Pay Now
+                </Link>
+              </Button>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </Link>

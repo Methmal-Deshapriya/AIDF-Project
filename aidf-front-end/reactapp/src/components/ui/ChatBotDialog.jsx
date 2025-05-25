@@ -18,7 +18,7 @@ import bot_image from "@/assets/bot_2.jpg";
 import { SendHorizonal } from "lucide-react";
 
 const schema = z.object({
-  message: z.string().min(10, "Message must be at least 10 characters."),
+  message: z.string().min(1),
 });
 
 export const ChatBotDialog = () => {
@@ -118,7 +118,6 @@ export const ChatBotDialog = () => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />

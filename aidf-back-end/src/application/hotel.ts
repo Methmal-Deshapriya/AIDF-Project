@@ -56,6 +56,23 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // updateExistingHotelsWithEmail();
 
+// const updateExistingHotelsWithRating = async () => {
+//   try {
+//     const hotels = await Hotel.find({});
+//     hotels.forEach(async (hotel) => {
+//       if (!hotel.rating && !hotel.reviews && !hotel.totalRating) {
+//         hotel.rating = 0;
+//         hotel.reviews = 0;
+//         hotel.totalRating = 0;
+//         await hotel.save();
+//         console.log("Updated hotels with rating");
+//       }
+//     });
+//   } catch (error) {
+//     console.error("Error updating hotels with rating:", error);
+//   }
+// };
+
 export const getAllHotels = async (
   req: Request,
   res: Response,

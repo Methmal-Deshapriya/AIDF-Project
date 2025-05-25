@@ -34,7 +34,7 @@ const HotelCard = (props) => {
           </div>
           <div className="flex justify-start">
             {props.confidence ? (
-              <p className="text-muted-foreground pl-2 pr-2 bg-blue-200 rounded-xl">
+              <p className="text-muted-foreground pl-2 pr-2  bg-blue-200 rounded-xl">
                 Simlarity: {props.confidence * 100}%
               </p>
             ) : null}

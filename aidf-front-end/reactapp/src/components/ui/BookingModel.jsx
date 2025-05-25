@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { z } from "zod";
+import { data } from "react-router";
 
 //zod schema validation
 const bookingSchema = z
@@ -38,7 +39,18 @@ const bookingSchema = z
   .refine((data) => new Date(data.checkIn) < new Date(data.checkOut), {
     message: "Check-in date should be less than check-out date",
     path: ["checkOut"],
-  });
+  })
+  .refine(
+    (data) => {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return new Date(data.checkIn) >= today;
+    },
+    {
+      message: "Check-in date should be today or in the future.",
+      path: ["checkIn"],
+    }
+  );
 
 export default function BookingModel({
   isOpen,

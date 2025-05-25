@@ -22,7 +22,10 @@ const api = createApi({
       query: () => "hotel",
     }),
     getHotelById: builder.query({
-      query: (id) => `hotel/${id}`,
+      query: ({ hotelId }) => `hotel/${hotelId}`,
+      providesTags: (result, error, { hotelId }) => [
+        { type: "Hotel", id: hotelId },
+      ],
     }),
     getHotelBySearch: builder.query({
       query: ({ query }) => `hotel/search/retrieve?query=${query}`,
