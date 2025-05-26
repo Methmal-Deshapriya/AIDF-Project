@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useChatBotMutation } from "@/lib/api";
-import bot_image from "@/assets/bot_2.jpg";
+import bot_image from "@/assets/bot_4.png";
 import { SendHorizonal } from "lucide-react";
 
 const schema = z.object({

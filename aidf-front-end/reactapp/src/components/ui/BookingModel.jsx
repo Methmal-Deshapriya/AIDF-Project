@@ -124,6 +124,10 @@ export default function BookingModel({
         <DialogHeader>
           <DialogTitle>Booking Details</DialogTitle>
         </DialogHeader>
+        <DialogDescription className="mb-4">
+          Not showing your name and email address? Then you need to log in
+          first.
+        </DialogDescription>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleFormSubmit)}>
             <div className="flex gap-4 items-center  justify-between">

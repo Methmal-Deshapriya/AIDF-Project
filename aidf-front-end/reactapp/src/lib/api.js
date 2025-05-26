@@ -126,6 +126,27 @@ const api = createApi({
         body: messages,
       }),
     }),
+    getAllBookings: builder.query({
+      query: () => `booking`,
+    }),
+    deleteABooking: builder.mutation({
+      query: ({ id }) => ({
+        url: `booking/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (result, error, { userId }) => [
+        { type: "Bookings", id: userId },
+      ],
+    }),
+    deleteHotelById: builder.mutation({
+      query: ({ id }) => ({
+        url: `hotel/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (result, error, { hotelId }) => [
+        { type: "Hotel", id: hotelId },
+      ],
+    }),
   }),
 });
 
@@ -149,5 +170,8 @@ export const {
   useCheckHasRatedQuery,
   useCreateAppRatingMutation,
   useGetLandingReviewsQuery,
+  useDeleteABookingMutation,
+  useDeleteHotelByIdMutation,
+  useGetAllBookingsQuery,
 } = api;
 export { api };

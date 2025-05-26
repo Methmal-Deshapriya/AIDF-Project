@@ -184,6 +184,27 @@ export const deleteHotel = async (
     const hotel = await Hotel.findById(hotelId);
     if (!hotel) {
       throw new NotFoundError("Hotel to delete not found");
+      return;
+    }
+
+    if (hotel.stripePriceId) {
+      const price = await stripe.prices.retrieve(hotel.stripePriceId);
+      const productId =
+        typeof price.product === "string" ? price.product : price.product.id;
+
+      try {
+        // Attempt to delete the product
+        await stripe.products.del(productId);
+        console.log(`Stripe product ${productId} deleted successfully.`);
+      } catch (stripeError: any) {
+        // If deletion fails (e.g., due to active prices), archive the product
+        console.warn(
+          `Stripe product deletion failed, archiving instead: ${stripeError.message}`
+        );
+        await stripe.products.update(productId, { active: false });
+      }
+    } else {
+      console.warn("No Stripe price ID associated with this hotel.");
     }
     await Hotel.findByIdAndDelete(hotelId);
     res.status(200).json({
@@ -191,6 +212,7 @@ export const deleteHotel = async (
     });
     return;
   } catch (error) {
+    console.error("Error deleting hotel:", error);
     next(error);
   }
 };

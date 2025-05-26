@@ -41,7 +41,7 @@ app.use(express.json());
 
 //Connect to the database
 connectDB().then(() => {
-  cron.schedule("0 0 * * *", async () => {
+  cron.schedule("30 2 * * *", async () => {
     console.log("Running daily booking cleanup...");
     await deleteExpiredBookings();
 
