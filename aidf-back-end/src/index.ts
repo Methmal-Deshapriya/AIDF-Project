@@ -57,6 +57,9 @@ app.use("/api/payment", paymentRouter);
 app.use("/api/review", reviewRouter);
 app.use("/api/help", helpRouter);
 app.use("/api/appstatistics", appStatisticsRouter);
+app.get("/health", (req, res) => {
+  res.status(200).json({ message: "I'm alive" });
+});
 
 app.use(globalErrorHandlingMiddleware);
 
