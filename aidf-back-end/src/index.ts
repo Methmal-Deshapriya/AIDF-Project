@@ -20,6 +20,11 @@ import { sendCheckInReminders } from "./utills/sheduledJobs";
 const FRONTEND_URL = process.env.FRONTEND_URL;
 const app = express();
 
+app.all("/health", (req, res) => {
+  console.log(`🔍 UptimeRobot test: ${req.method}`);
+  res.status(200).json({ method: req.method, ok: true });
+});
+
 app.use(clerkMiddleware());
 
 //To allow cross-origin requests
@@ -57,10 +62,6 @@ app.use("/api/payment", paymentRouter);
 app.use("/api/review", reviewRouter);
 app.use("/api/help", helpRouter);
 app.use("/api/appstatistics", appStatisticsRouter);
-app.all("/health", (req, res) => {
-  console.log(`🔍 UptimeRobot test: ${req.method}`);
-  res.status(200).json({ method: req.method, ok: true });
-});
 
 app.use(globalErrorHandlingMiddleware);
 
