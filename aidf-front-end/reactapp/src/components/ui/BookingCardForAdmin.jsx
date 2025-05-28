@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router";
 import { CalendarDays } from "lucide-react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 export const BookingCardForAdmin = ({ booking }) => {
   return (
@@ -9,7 +11,7 @@ export const BookingCardForAdmin = ({ booking }) => {
         <Link to={`/hotel/${booking.hotelId}`}>
           {/* Left: Image */}
           <div className="relative aspect-[4/3] overflow-hidden rounded-xl rounded-b-none block group relative">
-            <img
+            <LazyLoadImage
               src={booking.hotelImage ? booking.hotelImage : HeroImage}
               alt={booking.hotelName}
               className="w-full h-full object-cover absolute transition-transform group-hover:scale-105"

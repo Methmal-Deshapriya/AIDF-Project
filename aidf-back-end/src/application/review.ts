@@ -150,3 +150,23 @@ export const getReviewsForUser = async (
     next(error);
   }
 };
+
+export const deleteReview = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const reviewId = req.params.id;
+
+  try {
+    const review = await Review.findById(reviewId);
+    if (!review) {
+      res.status(404).json({ message: "Review not found" });
+      return;
+    }
+    await Review.deleteOne({ _id: reviewId });
+    res.status(200).json({ message: "Review deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};

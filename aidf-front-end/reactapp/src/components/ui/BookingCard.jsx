@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { CalendarDays } from "lucide-react";
-import HeroImage from "@/assets/hero_1.jpg";
 import { Link } from "react-router";
 import { useDeleteABookingMutation } from "@/lib/api";
 import { toast } from "sonner";
@@ -44,7 +43,7 @@ export const BookingCard = ({ booking }) => {
         {/* Left: Image */}
         <div className="relative aspect-[4/3] overflow-hidden rounded-xl rounded-b-none block group relative">
           <img
-            src={booking.hotelImage ? booking.hotelImage : HeroImage}
+            src={booking.hotelImage}
             alt={booking.hotelName}
             className="w-full h-full object-cover absolute transition-transform group-hover:scale-105"
           />

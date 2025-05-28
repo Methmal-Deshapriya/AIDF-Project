@@ -120,127 +120,121 @@ export default function BookingModel({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Booking Details</DialogTitle>
+      <DialogContent className="max-w-xl w-full bg-white rounded-2xl shadow-xl">
+        <DialogHeader className="text-left">
+          <DialogTitle className="text-2xl font-semibold text-zinc-800">
+            Booking Details
+          </DialogTitle>
+          <DialogDescription className="text-sm text-zinc-500">
+            Not showing your name and email address? Then you need to log in
+            first.
+          </DialogDescription>
         </DialogHeader>
-        <DialogDescription className="mb-4">
-          Not showing your name and email address? Then you need to log in
-          first.
-        </DialogDescription>
+
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleFormSubmit)}>
-            <div className="flex gap-4 items-center  justify-between">
-              {/* Hotel name field */}
+          <form
+            onSubmit={form.handleSubmit(handleFormSubmit)}
+            className="space-y-6"
+          >
+            {/* Hotel & User Name */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <FormField
                 control={form.control}
                 name="hotelName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Hotel Name :</FormLabel>
+                    <FormLabel>Hotel Name</FormLabel>
                     <FormControl>
                       <Input
                         readOnly
                         {...field}
                         tabIndex={-1}
-                        className="bg-gray-100 w-full "
+                        className="bg-gray-100"
                       />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
-              {/* User name field */}
               <FormField
                 control={form.control}
                 name="userFullName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>User Name :</FormLabel>
+                    <FormLabel>User Name</FormLabel>
                     <FormControl>
                       <Input
                         readOnly
                         {...field}
                         tabIndex={-1}
-                        className="bg-gray-100 w-1/2 w-full"
+                        className="bg-gray-100"
                       />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
-            {/* User email field */}
-            <div className="py-4">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>User Email :</FormLabel>
-                    <FormControl>
-                      <Input
-                        readOnly
-                        {...field}
-                        tabIndex={-1}
-                        className="bg-gray-100 w-1/2 w-full"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <hr />
-            {/* check in and out date field */}
-            <div className="flex py-4 gap-4 items-center  justify-between">
+
+            {/* Email */}
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>User Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      readOnly
+                      {...field}
+                      tabIndex={-1}
+                      className="bg-gray-100"
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            {/* Dates */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <FormField
                 control={form.control}
                 name="checkIn"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Check In :</FormLabel>
+                    <FormLabel>Check In</FormLabel>
                     <FormControl>
-                      <Input
-                        type="date"
-                        {...field}
-                        className="bg-gray-100 w-full "
-                      />
+                      <Input type="date" {...field} className="bg-gray-100" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="checkOut"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Check Out :</FormLabel>
+                    <FormLabel>Check Out</FormLabel>
                     <FormControl>
-                      <Input
-                        type="date"
-                        {...field}
-                        className="bg-gray-100  w-full "
-                      />
+                      <Input type="date" {...field} className="bg-gray-100" />
                     </FormControl>
-                    <FormMessage className="w-fill " />
+                    <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
-            {/* total price */}
-            {totalPrice > 0 ? (
-              <div className="flex justify-end mt-4">
-                <p className=" text-xl font-bold">Total: ${totalPrice}</p>
-              </div>
-            ) : null}
 
+            {/* Total Price */}
+            {totalPrice > 0 && (
+              <div className="text-right text-lg font-semibold text-zinc-700">
+                Total: ${totalPrice}
+              </div>
+            )}
+
+            {/* Submit */}
             <DialogFooter>
               <Button
                 type="submit"
-                className="w-full mt-4"
+                className="w-full"
                 disabled={!form.formState.isValid}
               >
                 Book

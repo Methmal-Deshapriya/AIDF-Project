@@ -6,10 +6,9 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-
-import botWelcomeImage from "@/assets/welcome_bot2.png";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const WelcomeDialog = () => {
   const [open, setOpen] = useState(false);
@@ -42,8 +41,8 @@ const WelcomeDialog = () => {
                 transition={{ delay: 0.2, duration: 0.5 }}
                 className="w-full md:w-1/3 flex justify-center"
               >
-                <img
-                  src={botWelcomeImage}
+                <LazyLoadImage
+                  src="/assets/welcome_bot.webp"
                   alt="Hotelzi AI Bot"
                   width={240}
                   height={240}

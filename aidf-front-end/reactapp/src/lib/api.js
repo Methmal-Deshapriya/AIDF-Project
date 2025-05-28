@@ -81,6 +81,16 @@ const api = createApi({
         { type: "userReviews" },
       ],
     }),
+    deleteUserReview: builder.mutation({
+      query: (reviewId) => ({
+        url: `review/${reviewId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (result, error, { hotelId }) => [
+        { type: "Hotel", id: hotelId },
+        { type: "userReviews" },
+      ],
+    }),
     createHelp: builder.mutation({
       query: (help) => ({
         url: "help",
@@ -173,5 +183,6 @@ export const {
   useDeleteABookingMutation,
   useDeleteHotelByIdMutation,
   useGetAllBookingsQuery,
+  useDeleteUserReviewMutation,
 } = api;
 export { api };

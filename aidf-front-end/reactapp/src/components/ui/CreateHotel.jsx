@@ -66,6 +66,7 @@ const CreateHotel = () => {
       form.reset();
     } catch (error) {
       toast.error("Hotel creation failed");
+      form.reset();
     }
   };
 
