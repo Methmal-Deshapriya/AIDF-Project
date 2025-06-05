@@ -4,7 +4,7 @@ import { createHelpDTO } from "../domain/dtos/help";
 import { clerkClient } from "@clerk/express";
 import { sendEmail } from "../utills/mailer";
 
-const adminEmail = "methmaldeshapriya2002@gmail.com";
+const adminEmail = "methmald1222@gmail.com";
 
 export const createHelp = async (
   req: Request,
