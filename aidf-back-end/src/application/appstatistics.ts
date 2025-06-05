@@ -51,7 +51,7 @@ export const getAppStatistics = async (
     };
 
     // 5. Cache the result for 10 hours
-    cache.set("appStats", statistics, 60 * 60 * 10);
+    cache.set("appStats", statistics);
 
     res.json(statistics);
   } catch (error) {
@@ -148,7 +148,7 @@ export const getLandingReviews = async (
       .sort({ createdAt: -1 })
       .limit(3);
 
-    cache.set("landingReviews", landingReviews, 60 * 60 * 24);
+    cache.set("landingReviews", landingReviews);
     res.status(200).json(landingReviews);
     return;
   } catch (error) {
