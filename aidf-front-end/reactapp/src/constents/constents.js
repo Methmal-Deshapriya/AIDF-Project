@@ -38,5 +38,5 @@ export const LOCATION = [
   "Japan",
   "Italy",
   "Sri Lanka",
-  "United Arab Emirates",
+  "UAE",
 ];
